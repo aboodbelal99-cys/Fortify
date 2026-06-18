@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { contactInfo } from '@/data/services';
+import EmailLink from '@/components/EmailLink';
 
 export default function CTA() {
   return (
@@ -46,13 +47,11 @@ export default function CTA() {
 
         {/* Contact Info Row */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-text-muted">
-          <a
-            href={`mailto:${contactInfo.email}`}
+          <EmailLink
             className="flex items-center gap-2 hover:text-gold transition-colors"
           >
-
             {contactInfo.email}
-          </a>
+          </EmailLink>
           <span className="hidden sm:block text-text-muted/30">|</span>
           <a
             href={`tel:${contactInfo.phone}`}
