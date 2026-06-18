@@ -376,4 +376,32 @@ body {
 .pulse-line-6 { stroke-dasharray: 12 150; stroke-dashoffset: 165; animation: logo-flow 7.8s infinite linear; animation-delay: 1.8s; }
 .pulse-line-7 { stroke-dasharray: 12 150; stroke-dashoffset: 165; animation: logo-flow 6.4s infinite linear; animation-delay: 0.4s; }
 
+/* ===== Google Translate Customizations ===== */
+.skiptranslate, 
+.goog-te-banner-frame, 
+.goog-te-banner, 
+#goog-gt-tt, 
+#goog-gt-tt-wrapper {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.goog-tooltip {
+  display: none !important;
+}
+
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 

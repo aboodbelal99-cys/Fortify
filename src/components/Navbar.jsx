@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -60,6 +61,7 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+              <LanguageSwitcher className="ml-2" />
               <Link
                 href="/contact"
                 className="ml-3 inline-flex items-center gap-1.5 px-5 py-2 bg-gradient-to-r from-[#E8B95E] to-[#d4a44e] text-[#042430] text-[0.82rem] font-semibold rounded-lg hover:shadow-md hover:shadow-[#E8B95E]/20 transition-all duration-300"
@@ -117,7 +119,8 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <div className="pt-3">
+          <div className="pt-3 flex flex-col gap-3">
+            <LanguageSwitcher className="w-full flex justify-center" />
             <Link
               href="/contact"
               className="block text-center px-5 py-3 bg-gradient-to-r from-[#E8B95E] to-[#d4a44e] text-[#042430] text-sm font-semibold rounded-lg"
