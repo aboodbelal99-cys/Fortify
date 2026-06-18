@@ -80,7 +80,7 @@ export default function ServicePageLayout({ service }) {
             <div className="order-1 lg:order-2">
 
               <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-                How Fortify <span className="gradient-text">Solves This</span>
+                How <span className="fortify-brand notranslate"><span>Fortify</span></span> <span className="gradient-text">Solves This</span>
               </h2>
               <p className="text-text-secondary leading-relaxed text-lg">
                 {service.solution}

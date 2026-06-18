@@ -58,6 +58,18 @@ export default function LanguageSwitcher({ className }) {
     };
   }, [getGoogleTranslateSelect, detectCurrentLanguage]);
 
+  useEffect(() => {
+    if (currentLang === 'ar') {
+      document.documentElement.setAttribute('dir', 'rtl');
+      document.documentElement.setAttribute('lang', 'ar');
+      document.documentElement.classList.add('lang-ar');
+    } else {
+      document.documentElement.removeAttribute('dir');
+      document.documentElement.setAttribute('lang', 'en');
+      document.documentElement.classList.remove('lang-ar');
+    }
+  }, [currentLang]);
+
   const changeLanguage = (langCode) => {
     const select = getGoogleTranslateSelect();
 

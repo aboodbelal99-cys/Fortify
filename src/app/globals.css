@@ -412,3 +412,102 @@ body {
   border: none !important;
   box-shadow: none !important;
 }
+
+/* ===== Translation Helper Classes ===== */
+/* By default, hide the pseudo-element translation */
+.fortify-brand::after,
+.nav-home::after,
+.nav-why-fortify::after,
+.nav-process::after,
+.nav-get-started::after,
+.nav-about-us::after,
+.nav-contact::after,
+.nav-services::after {
+  content: "" !important;
+  display: none !important;
+}
+
+/* When language is Arabic (either detected by google or our pre-mount class), swap the text */
+html[lang="ar"] .fortify-brand span,
+html.lang-ar .fortify-brand span,
+html[lang="ar"] .nav-home span,
+html.lang-ar .nav-home span,
+html[lang="ar"] .nav-why-fortify span,
+html.lang-ar .nav-why-fortify span,
+html[lang="ar"] .nav-process span,
+html.lang-ar .nav-process span,
+html[lang="ar"] .nav-get-started span,
+html.lang-ar .nav-get-started span,
+html[lang="ar"] .nav-about-us span,
+html.lang-ar .nav-about-us span,
+html[lang="ar"] .nav-contact span,
+html.lang-ar .nav-contact span,
+html[lang="ar"] .nav-services span,
+html.lang-ar .nav-services span {
+  display: none !important;
+}
+
+html[lang="ar"] .fortify-brand::after,
+html.lang-ar .fortify-brand::after {
+  content: "فورتيفاي" !important;
+  display: inline !important;
+}
+
+html[lang="ar"] .nav-home::after,
+html.lang-ar .nav-home::after {
+  content: "الرئيسية" !important;
+  display: inline !important;
+}
+
+html[lang="ar"] .nav-why-fortify::after,
+html.lang-ar .nav-why-fortify::after {
+  content: "لماذا فورتيفاي" !important;
+  display: inline !important;
+}
+
+html[lang="ar"] .nav-process::after,
+html.lang-ar .nav-process::after {
+  content: "آلية العمل" !important;
+  display: inline !important;
+}
+
+html[lang="ar"] .nav-get-started::after,
+html.lang-ar .nav-get-started::after {
+  content: "ابدأ الآن" !important;
+  display: inline !important;
+}
+
+html[lang="ar"] .nav-about-us::after,
+html.lang-ar .nav-about-us::after {
+  content: "من نحن" !important;
+  display: inline !important;
+}
+
+html[lang="ar"] .nav-contact::after,
+html.lang-ar .nav-contact::after {
+  content: "تواصل معنا" !important;
+  display: inline !important;
+}
+
+/* Services translation */
+.nav-services::after {
+  content: "" !important;
+  display: none !important;
+}
+
+html[lang="ar"] .nav-services span,
+html.lang-ar .nav-services span {
+  display: none !important;
+}
+
+html[lang="ar"] .nav-services::after,
+html.lang-ar .nav-services::after {
+  content: "الخدمات" !important;
+  display: inline !important;
+}
+
+/* Ensure proper spacing around translated brand name so it doesn't smush into other words */
+.fortify-brand {
+  display: inline-block !important;
+  margin: 0 0.15em !important;
+}

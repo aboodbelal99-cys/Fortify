@@ -126,7 +126,11 @@ export default function HomePage() {
           <SectionTitle
             badge="Why Choose Us"
             title="Why Businesses"
-            highlight="Trust Fortify"
+            highlight={
+              <>
+                Trust <span className="fortify-brand notranslate"><span>Fortify</span></span>
+              </>
+            }
             description="We combine deep technical expertise with a genuine understanding of business needs. Here's what sets us apart."
           />
 

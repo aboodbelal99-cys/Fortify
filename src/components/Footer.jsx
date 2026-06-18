@@ -14,11 +14,12 @@ const footerLinks = [
   },
   {
     title: 'Company',
+    titleAr: 'الشركة',
     links: [
-      { label: 'Home', href: '/' },
-      { label: 'About Us', href: '/#why-fortify' },
-      { label: 'Our Process', href: '/#process' },
-      { label: 'Contact', href: '/contact' },
+      { label: 'Home', labelAr: 'الرئيسية', href: '/' },
+      { label: 'About Us', labelAr: 'من نحن', href: '/#why-fortify' },
+      { label: 'Our Process', labelAr: 'آلية العمل', href: '/#process' },
+      { label: 'Contact', labelAr: 'تواصل معنا', href: '/contact' },
     ],
   },
 ];
@@ -41,9 +42,11 @@ export default function Footer() {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <span className="text-xl font-bold tracking-tight">
-                <span className="text-white">Fort</span>
-                <span className="text-gold">ify</span>
+              <span className="fortify-brand text-xl font-bold tracking-tight notranslate">
+                <span>
+                  <span className="text-white">Fort</span>
+                  <span className="text-gold">ify</span>
+                </span>
               </span>
             </Link>
             <p className="text-text-secondary text-sm leading-relaxed mb-6">
@@ -96,7 +99,15 @@ export default function Footer() {
                       href={link.href}
                       className="text-text-secondary hover:text-white text-sm transition-colors duration-300 hover:translate-x-1 inline-block"
                     >
-                      {link.label}
+                      <span className={`${
+                        link.label === 'Home' ? 'nav-home' :
+                        link.label === 'About Us' ? 'nav-about-us' :
+                        link.label === 'Our Process' ? 'nav-process' :
+                        link.label === 'Contact' ? 'nav-contact' :
+                        ''
+                      } notranslate`}>
+                        <span>{link.label}</span>
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -147,7 +158,7 @@ export default function Footer() {
       <div className="border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-text-muted text-sm">
-            &copy; {new Date().getFullYear()} Fortify. All rights reserved.
+            &copy; {new Date().getFullYear()} <span className="fortify-brand notranslate"><span>Fortify</span></span>. All rights reserved.
           </p>
           <p className="text-text-muted text-xs">
             Fortifying Your Business, Coding Your Future
