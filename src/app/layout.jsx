@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        <div id="google_translate_element" style={{ display: 'none' }} />
+        <div id="google_translate_element" style={{ position: 'absolute', top: '-9999px', left: '-9999px', opacity: 0, pointerEvents: 'none' }} />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

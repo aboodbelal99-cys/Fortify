@@ -26,25 +26,18 @@ export default function LanguageSwitcher({ className }) {
   }, []);
 
   const changeLanguage = (langCode) => {
-    if (langCode === 'en') {
-      // Clear cookie
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`;
-      const hostParts = window.location.hostname.split('.');
-      if (hostParts.length > 2) {
-        const mainDomain = hostParts.slice(-2).join('.');
-        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${mainDomain};`;
-      }
-    } else {
-      // Set cookie
-      document.cookie = `googtrans=/en/${langCode}; path=/;`;
-      document.cookie = `googtrans=/en/${langCode}; path=/; domain=${window.location.hostname};`;
-      const hostParts = window.location.hostname.split('.');
-      if (hostParts.length > 2) {
-        const mainDomain = hostParts.slice(-2).join('.');
+    // Overwrite the cookie directly for current host
+    document.cookie = `googtrans=/en/${langCode}; path=/;`;
+    
+    // Also try writing it with domain prefix for subdomains
+    const hostParts = window.location.hostname.split('.');
+    if (hostParts.length > 2) {
+      const mainDomain = hostParts.slice(-2).join('.');
+      if (mainDomain !== 'vercel.app') {
         document.cookie = `googtrans=/en/${langCode}; path=/; domain=.${mainDomain};`;
       }
     }
+    
     window.location.reload();
   };
 
