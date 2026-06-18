@@ -386,9 +386,11 @@ body {
   visibility: hidden !important;
 }
 
-/* Hide the "skip translate" toolbar but keep the select element functional */
+/* Hide the "skip translate" toolbar visually but keep the select element alive */
 .skiptranslate {
-  display: none !important;
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
   height: 0 !important;
   overflow: hidden !important;
 }
