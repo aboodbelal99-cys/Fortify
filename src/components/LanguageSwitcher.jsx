@@ -1,19 +1,48 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 export default function LanguageSwitcher({ className }) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState('en');
+  const [ready, setReady] = useState(false);
   const dropdownRef = useRef(null);
 
+  // Find Google Translate's hidden <select> element
+  const getGoogleTranslateSelect = useCallback(() => {
+    return document.querySelector('.goog-te-combo');
+  }, []);
+
+  // Detect the current language from the Google Translate widget or the HTML lang attribute
+  const detectCurrentLanguage = useCallback(() => {
+    const select = getGoogleTranslateSelect();
+    if (select && select.value) {
+      return select.value;
+    }
+    // Check if the page has already been translated via cookie
+    const match = document.cookie.match(/googtrans=\/en\/([^;]+)/);
+    if (match && match[1] && match[1] !== 'en') {
+      return match[1];
+    }
+    return 'en';
+  }, [getGoogleTranslateSelect]);
+
   useEffect(() => {
-    // Determine active language from cookie on mount
-    const getActiveLanguage = () => {
-      const match = document.cookie.match(/googtrans=\/en\/([^;]+)/);
-      return match ? match[1] : 'en';
-    };
-    setCurrentLang(getActiveLanguage());
+    // Poll for the Google Translate widget to be ready (it loads async)
+    let attempts = 0;
+    const maxAttempts = 50; // 10 seconds max
+    const checkReady = setInterval(() => {
+      attempts++;
+      const select = getGoogleTranslateSelect();
+      if (select) {
+        clearInterval(checkReady);
+        setReady(true);
+        setCurrentLang(detectCurrentLanguage());
+      }
+      if (attempts >= maxAttempts) {
+        clearInterval(checkReady);
+      }
+    }, 200);
 
     // Close dropdown on click outside
     const handleClickOutside = (e) => {
@@ -22,23 +51,45 @@ export default function LanguageSwitcher({ className }) {
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+
+    return () => {
+      clearInterval(checkReady);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [getGoogleTranslateSelect, detectCurrentLanguage]);
 
   const changeLanguage = (langCode) => {
-    // Overwrite the cookie directly for current host
-    document.cookie = `googtrans=/en/${langCode}; path=/;`;
-    
-    // Also try writing it with domain prefix for subdomains
-    const hostParts = window.location.hostname.split('.');
-    if (hostParts.length > 2) {
-      const mainDomain = hostParts.slice(-2).join('.');
-      if (mainDomain !== 'vercel.app') {
-        document.cookie = `googtrans=/en/${langCode}; path=/; domain=.${mainDomain};`;
-      }
+    const select = getGoogleTranslateSelect();
+
+    if (!select) {
+      // Fallback: set cookie and reload
+      document.cookie = `googtrans=/en/${langCode}; path=/;`;
+      window.location.reload();
+      return;
     }
-    
-    window.location.reload();
+
+    if (langCode === 'en') {
+      // To revert to English, we need to trigger Google Translate's restore
+      // First try setting value to empty and dispatching change
+      select.value = '';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+
+      // Also clear cookie and reload as a fallback for reverting
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`;
+      
+      // Small delay then reload to ensure revert
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    } else {
+      // Set the select value to the target language and trigger change
+      select.value = langCode;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+      setCurrentLang(langCode);
+    }
+
+    setIsOpen(false);
   };
 
   return (
@@ -80,10 +131,7 @@ export default function LanguageSwitcher({ className }) {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-32 origin-top-right rounded-xl border border-border-gold bg-[#042430]/95 backdrop-blur-xl shadow-2xl z-50 py-1.5 flex flex-col gap-0.5 animate-fade-in">
           <button
-            onClick={() => {
-              changeLanguage('en');
-              setIsOpen(false);
-            }}
+            onClick={() => changeLanguage('en')}
             className={`w-full text-left px-4 py-2 text-xs font-semibold flex items-center justify-between hover:bg-gold/10 transition-all cursor-pointer ${
               currentLang === 'en' ? 'text-gold' : 'text-text-secondary hover:text-white'
             }`}
@@ -93,10 +141,7 @@ export default function LanguageSwitcher({ className }) {
             {currentLang === 'en' && <span className="text-xs">✓</span>}
           </button>
           <button
-            onClick={() => {
-              changeLanguage('ar');
-              setIsOpen(false);
-            }}
+            onClick={() => changeLanguage('ar')}
             className={`w-full text-left px-4 py-2 text-xs font-semibold flex items-center justify-between hover:bg-gold/10 transition-all cursor-pointer ${
               currentLang === 'ar' ? 'text-gold' : 'text-text-secondary hover:text-white'
             }`}

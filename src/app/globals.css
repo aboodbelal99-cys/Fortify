@@ -377,31 +377,36 @@ body {
 .pulse-line-7 { stroke-dasharray: 12 150; stroke-dashoffset: 165; animation: logo-flow 6.4s infinite linear; animation-delay: 0.4s; }
 
 /* ===== Google Translate Customizations ===== */
-.skiptranslate, 
-.goog-te-banner-frame, 
-.goog-te-banner, 
-#goog-gt-tt, 
+/* Hide the banner frame and top bar that Google injects */
+.goog-te-banner-frame,
+.goog-te-banner,
+#goog-gt-tt,
 #goog-gt-tt-wrapper {
   display: none !important;
   visibility: hidden !important;
 }
 
+/* Hide the "skip translate" toolbar but keep the select element functional */
+.skiptranslate {
+  display: none !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Prevent Google Translate from pushing the body down */
 body {
   top: 0 !important;
 }
 
-.goog-tooltip {
-  display: none !important;
-}
-
+/* Hide tooltips that appear on hover over translated text */
+.goog-tooltip,
 .goog-tooltip:hover {
   display: none !important;
 }
 
+/* Remove highlight styling on translated text */
 .goog-text-highlight {
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
 }
-
-
