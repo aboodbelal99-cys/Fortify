@@ -8,8 +8,7 @@ const footerLinks = [
     links: [
       { label: 'Subscription Management', href: '/services/subscription-management' },
       { label: 'Review & Feedback', href: '/services/review-feedback' },
-      { label: 'HR Automation', href: '/services/hr-automation' },
-      { label: 'Call-to-SMS', href: '/services/call-to-sms' },
+      { label: 'Call-to-WhatsApp', href: '/services/call-to-whatsapp' },
     ],
   },
   {

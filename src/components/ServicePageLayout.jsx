@@ -168,7 +168,7 @@ export default function ServicePageLayout({ service }) {
               className="btn-gold text-base px-8 py-4 w-full sm:w-auto justify-center"
             >
 
-              Discuss This Solution
+              Request Demo
             </a>
             <Link
               href="/contact"

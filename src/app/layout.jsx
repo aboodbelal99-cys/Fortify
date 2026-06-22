@@ -9,13 +9,12 @@ export const metadata = {
     template: '%s | Fortify',
   },
   description:
-    'Fortify provides premium business automation solutions including subscription management, automated reviews, HR automation, and call-to-SMS systems. Fortifying your business, coding your future.',
+    'Fortify provides premium business automation solutions including subscription management, automated reviews, and call-to-WhatsApp automation. Fortifying your business, coding your future.',
   keywords: [
     'business automation',
     'subscription management',
-    'HR automation',
     'review automation',
-    'call to SMS',
+    'call to WhatsApp',
     'workflow automation',
     'digital transformation',
   ],

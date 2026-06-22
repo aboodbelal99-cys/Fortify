@@ -112,7 +112,7 @@ export default function HomePage() {
             description="We deliver powerful automation systems tailored to your industry. Each solution is designed to save time, reduce errors, and boost your revenue."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {services.map((service, index) => (
               <ServiceCard key={service.id} service={service} index={index} />
             ))}

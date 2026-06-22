@@ -78,7 +78,7 @@ export default function Navbar() {
                 className="ml-3 inline-flex items-center gap-1.5 px-5 py-2 bg-gradient-to-r from-[#E8B95E] to-[#d4a44e] text-[#042430] text-[0.82rem] font-semibold rounded-lg hover:shadow-md hover:shadow-[#E8B95E]/20 transition-all duration-300"
               >
                 <span className="nav-get-started notranslate">
-                  <span>Get Started</span>
+                  <span>Contact Us</span>
                 </span>
               </Link>
             </div>
@@ -148,7 +148,7 @@ export default function Navbar() {
               className="block text-center px-5 py-3 bg-gradient-to-r from-[#E8B95E] to-[#d4a44e] text-[#042430] text-sm font-semibold rounded-lg"
             >
               <span className="nav-get-started notranslate">
-                <span>Get Started</span>
+                <span>Contact Us</span>
               </span>
             </Link>
           </div>
