@@ -1,29 +1,27 @@
+'use client';
+
 import Link from 'next/link';
 import { contactInfo } from '@/data/services';
 import EmailLink from '@/components/EmailLink';
-
-const footerLinks = [
-  {
-    title: 'Services',
-    links: [
-      { label: 'Subscription Management', href: '/services/subscription-management' },
-      { label: 'Review & Feedback', href: '/services/review-feedback' },
-      { label: 'Call-to-WhatsApp', href: '/services/call-to-whatsapp' },
-    ],
-  },
-  {
-    title: 'Company',
-    titleAr: 'الشركة',
-    links: [
-      { label: 'Home', labelAr: 'الرئيسية', href: '/' },
-      { label: 'About Us', labelAr: 'من نحن', href: '/#why-fortify' },
-      { label: 'Our Process', labelAr: 'آلية العمل', href: '/#process' },
-      { label: 'Contact', labelAr: 'تواصل معنا', href: '/contact' },
-    ],
-  },
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
+  const { t, lang } = useLanguage();
+  const isAr = lang === 'ar';
+
+  const serviceLinks = [
+    { label: isAr ? 'نظام إدارة الاشتراكات' : 'Subscription Management', href: '/services/subscription-management' },
+    { label: isAr ? 'نظام التقييمات والملاحظات' : 'Review & Feedback', href: '/services/review-feedback' },
+    { label: isAr ? 'أتمتة المكالمات إلى واتساب' : 'Call-to-WhatsApp', href: '/services/call-to-whatsapp' },
+  ];
+
+  const companyLinks = [
+    { label: t('footer.companyLinks.home'), href: '/' },
+    { label: t('footer.companyLinks.aboutUs'), href: '/#why-fortify' },
+    { label: t('footer.companyLinks.process'), href: '/#process' },
+    { label: t('footer.companyLinks.contact'), href: '/contact' },
+  ];
+
   return (
     <footer className="bg-navy-dark border-t border-border">
       {/* Main Footer */}
@@ -41,16 +39,13 @@ export default function Footer() {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <span className="fortify-brand text-xl font-bold tracking-tight notranslate">
-                <span>
-                  <span className="text-white">Fort</span>
-                  <span className="text-gold">ify</span>
-                </span>
+              <span className="text-xl font-bold tracking-tight">
+                <span className="text-white">Fort</span>
+                <span className="text-gold">ify</span>
               </span>
             </Link>
             <p className="text-text-secondary text-sm leading-relaxed mb-6">
-              Fortifying Your Business, Coding Your Future. Premium automation
-              solutions that transform your operations and accelerate growth.
+              {t('footer.tagline')}
             </p>
             {/* Social / Contact Icons */}
             <div className="flex gap-3">
@@ -85,39 +80,48 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Link Columns */}
-          {footerLinks.map((group) => (
-            <div key={group.title}>
-              <h3 className="text-gold font-semibold text-sm uppercase tracking-wider mb-6">
-                {group.title}
-              </h3>
-              <ul className="space-y-3">
-                {group.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-text-secondary hover:text-white text-sm transition-colors duration-300 hover:translate-x-1 inline-block"
-                    >
-                      <span className={`${
-                        link.label === 'Home' ? 'nav-home' :
-                        link.label === 'About Us' ? 'nav-about-us' :
-                        link.label === 'Our Process' ? 'nav-process' :
-                        link.label === 'Contact' ? 'nav-contact' :
-                        ''
-                      } notranslate`}>
-                        <span>{link.label}</span>
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Services Links */}
+          <div>
+            <h3 className="text-gold font-semibold text-sm uppercase tracking-wider mb-6">
+              {t('footer.servicesTitle')}
+            </h3>
+            <ul className="space-y-3">
+              {serviceLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-text-secondary hover:text-white text-sm transition-colors duration-300 hover:translate-x-1 inline-block"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company Links */}
+          <div>
+            <h3 className="text-gold font-semibold text-sm uppercase tracking-wider mb-6">
+              {t('footer.companyTitle')}
+            </h3>
+            <ul className="space-y-3">
+              {companyLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-text-secondary hover:text-white text-sm transition-colors duration-300 hover:translate-x-1 inline-block"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           {/* Contact Column */}
           <div>
             <h3 className="text-gold font-semibold text-sm uppercase tracking-wider mb-6">
-              Get In Touch
+              {t('footer.getInTouchTitle')}
             </h3>
             <ul className="space-y-4">
               <li>
@@ -135,7 +139,7 @@ export default function Footer() {
                 <EmailLink
                   className="flex items-center gap-3 text-text-secondary hover:text-white text-sm transition-colors duration-300"
                 >
-                  <span className="text-gold">Email</span>
+                  <span className="text-gold">{isAr ? 'البريد' : 'Email'}</span>
                   <span>{contactInfo.email}</span>
                 </EmailLink>
               </li>
@@ -144,7 +148,7 @@ export default function Footer() {
                   href={`tel:${contactInfo.phone}`}
                   className="flex items-center gap-3 text-text-secondary hover:text-white text-sm transition-colors duration-300"
                 >
-                  <span className="text-gold">Phone</span>
+                  <span className="text-gold">{isAr ? 'الهاتف' : 'Phone'}</span>
                   <span>{contactInfo.phone}</span>
                 </a>
               </li>
@@ -157,10 +161,10 @@ export default function Footer() {
       <div className="border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-text-muted text-sm">
-            &copy; {new Date().getFullYear()} <span className="fortify-brand notranslate"><span>Fortify</span></span>. All rights reserved.
+            &copy; {new Date().getFullYear()} <span className="font-semibold">Fort<span className="text-gold">ify</span></span>. {t('footer.copyright')}
           </p>
           <p className="text-text-muted text-xs">
-            Fortifying Your Business, Coding Your Future
+            {t('footer.slogan')}
           </p>
         </div>
       </div>

@@ -1,6 +1,12 @@
+'use client';
+
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Hero() {
+  const { t, lang } = useLanguage();
+  const isAr = lang === 'ar';
+
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#031e2a]">
       
@@ -48,7 +54,6 @@ export default function Hero() {
           <path d="M 180 170 L 180 195 L 210 195" stroke="#E8B95E" strokeWidth="0.8" strokeOpacity="0.15" />
           <circle cx="220" cy="145" r="2.5" fill="#E8B95E" opacity="0.6" />
           <circle cx="210" cy="195" r="2" fill="#E8B95E" opacity="0.45" />
-          {/* Large glow orb */}
           <circle cx="70" cy="140" r="5" fill="#E8B95E" opacity="0.7" filter="url(#glow-l)">
             <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3s" repeatCount="indefinite" />
           </circle>
@@ -86,7 +91,6 @@ export default function Hero() {
           <circle cx="290" cy="395" r="3" fill="#E8B95E" opacity="0.8" />
           <circle cx="290" cy="395" r="8" fill="#E8B95E" opacity="0.15" filter="url(#glow-l)" />
           <circle cx="270" cy="445" r="2" fill="#E8B95E" opacity="0.4" />
-          {/* Big glow orb at bend */}
           <circle cx="120" cy="390" r="6" fill="#E8B95E" opacity="0.6" filter="url(#glow-l)">
             <animate attributeName="opacity" values="0.3;0.8;0.3" dur="4s" repeatCount="indefinite" />
           </circle>
@@ -194,7 +198,6 @@ export default function Hero() {
           <path d="M 220 200 L 220 225 L 180 225" stroke="#E8B95E" strokeWidth="0.8" strokeOpacity="0.15" />
           <circle cx="175" cy="175" r="2" fill="#E8B95E" opacity="0.5" />
           <circle cx="180" cy="225" r="2" fill="#E8B95E" opacity="0.4" />
-          {/* Big glow */}
           <circle cx="340" cy="170" r="5" fill="#E8B95E" opacity="0.7" filter="url(#glow-r)">
             <animate attributeName="opacity" values="0.4;0.85;0.4" dur="3.5s" repeatCount="indefinite" />
           </circle>
@@ -230,7 +233,6 @@ export default function Hero() {
           <circle cx="105" cy="425" r="3" fill="#E8B95E" opacity="0.8" />
           <circle cx="105" cy="425" r="8" fill="#E8B95E" opacity="0.15" filter="url(#glow-r)" />
           <circle cx="110" cy="475" r="2" fill="#E8B95E" opacity="0.4" />
-          {/* Big glow */}
           <circle cx="280" cy="420" r="6" fill="#E8B95E" opacity="0.6" filter="url(#glow-r)">
             <animate attributeName="opacity" values="0.3;0.75;0.3" dur="4.5s" repeatCount="indefinite" />
           </circle>
@@ -329,119 +331,36 @@ export default function Hero() {
                 </filter>
               </defs>
 
-              {/* Trace Lines that Pulse (using CSS flow stroke animation) */}
-              <path
-                d="M 498 232 L 503 230 L 524 218 L 541 201 L 549 201 L 558 208"
-                stroke="#E8B95E"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                opacity="0.75"
-                className="pulse-line-1"
-              />
-              <path
-                d="M 522 274 L 531 272 L 550 253 L 575 249 L 580 244 L 600 244 L 609 251"
-                stroke="#E8B95E"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                opacity="0.75"
-                className="pulse-line-2"
-              />
-              <path
-                d="M 520 327 L 547 327 L 561 313 L 634 313 L 662 341 L 681 341 L 689 347"
-                stroke="#E8B95E"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                opacity="0.75"
-                className="pulse-line-3"
-              />
-              <path
-                d="M 521 386 L 525 382 L 595 382 L 600 377 L 620 377 L 628 385"
-                stroke="#E8B95E"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                opacity="0.75"
-                className="pulse-line-4"
-              />
-              <path
-                d="M 520 445 L 547 446 L 560 459 L 635 459 L 662 432 L 681 432 L 690 421"
-                stroke="#E8B95E"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                opacity="0.75"
-                className="pulse-line-5"
-              />
-              <path
-                d="M 521 499 L 531 501 L 546 515 L 575 515 L 580 510 L 601 510 L 609 517"
-                stroke="#E8B95E"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                opacity="0.75"
-                className="pulse-line-6"
-              />
-              <path
-                d="M 498 540 L 512 548 L 516 551 L 557 551"
-                stroke="#E8B95E"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                opacity="0.75"
-                className="pulse-line-7"
-              />
+              {/* Trace Lines that Pulse */}
+              <path d="M 498 232 L 503 230 L 524 218 L 541 201 L 549 201 L 558 208" stroke="#E8B95E" strokeWidth="2.5" strokeLinecap="round" opacity="0.75" className="pulse-line-1" />
+              <path d="M 522 274 L 531 272 L 550 253 L 575 249 L 580 244 L 600 244 L 609 251" stroke="#E8B95E" strokeWidth="2.5" strokeLinecap="round" opacity="0.75" className="pulse-line-2" />
+              <path d="M 520 327 L 547 327 L 561 313 L 634 313 L 662 341 L 681 341 L 689 347" stroke="#E8B95E" strokeWidth="2.5" strokeLinecap="round" opacity="0.75" className="pulse-line-3" />
+              <path d="M 521 386 L 525 382 L 595 382 L 600 377 L 620 377 L 628 385" stroke="#E8B95E" strokeWidth="2.5" strokeLinecap="round" opacity="0.75" className="pulse-line-4" />
+              <path d="M 520 445 L 547 446 L 560 459 L 635 459 L 662 432 L 681 432 L 690 421" stroke="#E8B95E" strokeWidth="2.5" strokeLinecap="round" opacity="0.75" className="pulse-line-5" />
+              <path d="M 521 499 L 531 501 L 546 515 L 575 515 L 580 510 L 601 510 L 609 517" stroke="#E8B95E" strokeWidth="2.5" strokeLinecap="round" opacity="0.75" className="pulse-line-6" />
+              <path d="M 498 540 L 512 548 L 516 551 L 557 551" stroke="#E8B95E" strokeWidth="2.5" strokeLinecap="round" opacity="0.75" className="pulse-line-7" />
 
               {/* Traveling energy particles */}
               <circle r="4" fill="#FFF" filter="url(#particle-glow)">
-                <animateMotion
-                  dur="6s"
-                  repeatCount="indefinite"
-                  path="M 498 232 L 503 230 L 524 218 L 541 201 L 549 201 L 558 208"
-                />
+                <animateMotion dur="6s" repeatCount="indefinite" path="M 498 232 L 503 230 L 524 218 L 541 201 L 549 201 L 558 208" />
               </circle>
               <circle r="4" fill="#FFF" filter="url(#particle-glow)">
-                <animateMotion
-                  dur="7.2s"
-                  begin="1.2s"
-                  repeatCount="indefinite"
-                  path="M 522 274 L 531 272 L 550 253 L 575 249 L 580 244 L 600 244 L 609 251"
-                />
+                <animateMotion dur="7.2s" begin="1.2s" repeatCount="indefinite" path="M 522 274 L 531 272 L 550 253 L 575 249 L 580 244 L 600 244 L 609 251" />
               </circle>
               <circle r="4" fill="#FFF" filter="url(#particle-glow)">
-                <animateMotion
-                  dur="8.5s"
-                  begin="0.5s"
-                  repeatCount="indefinite"
-                  path="M 520 327 L 547 327 L 561 313 L 634 313 L 662 341 L 681 341 L 689 347"
-                />
+                <animateMotion dur="8.5s" begin="0.5s" repeatCount="indefinite" path="M 520 327 L 547 327 L 561 313 L 634 313 L 662 341 L 681 341 L 689 347" />
               </circle>
               <circle r="4" fill="#FFF" filter="url(#particle-glow)">
-                <animateMotion
-                  dur="6.8s"
-                  begin="2.1s"
-                  repeatCount="indefinite"
-                  path="M 521 386 L 525 382 L 595 382 L 600 377 L 620 377 L 628 385"
-                />
+                <animateMotion dur="6.8s" begin="2.1s" repeatCount="indefinite" path="M 521 386 L 525 382 L 595 382 L 600 377 L 620 377 L 628 385" />
               </circle>
               <circle r="4" fill="#FFF" filter="url(#particle-glow)">
-                <animateMotion
-                  dur="9s"
-                  begin="0.9s"
-                  repeatCount="indefinite"
-                  path="M 520 445 L 547 446 L 560 459 L 635 459 L 662 432 L 681 432 L 690 421"
-                />
+                <animateMotion dur="9s" begin="0.9s" repeatCount="indefinite" path="M 520 445 L 547 446 L 560 459 L 635 459 L 662 432 L 681 432 L 690 421" />
               </circle>
               <circle r="4" fill="#FFF" filter="url(#particle-glow)">
-                <animateMotion
-                  dur="7.8s"
-                  begin="1.8s"
-                  repeatCount="indefinite"
-                  path="M 521 499 L 531 501 L 546 515 L 575 515 L 580 510 L 601 510 L 609 517"
-                />
+                <animateMotion dur="7.8s" begin="1.8s" repeatCount="indefinite" path="M 521 499 L 531 501 L 546 515 L 575 515 L 580 510 L 601 510 L 609 517" />
               </circle>
               <circle r="4" fill="#FFF" filter="url(#particle-glow)">
-                <animateMotion
-                  dur="6.4s"
-                  begin="0.4s"
-                  repeatCount="indefinite"
-                  path="M 498 540 L 512 548 L 516 551 L 557 551"
-                />
+                <animateMotion dur="6.4s" begin="0.4s" repeatCount="indefinite" path="M 498 540 L 512 548 L 516 551 L 557 551" />
               </circle>
             </svg>
           </div>
@@ -449,8 +368,8 @@ export default function Hero() {
 
         {/* Headline */}
         <h1 className="animate-fade-in-up text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] font-extrabold leading-[1.08] tracking-tight mb-6">
-          <span className="text-white drop-shadow-lg block">Business Automation</span>
-          <span className="text-[#E8B95E] drop-shadow-lg block mt-2">Solutions</span>
+          <span className="text-white drop-shadow-lg block">{t('hero.title1')}</span>
+          <span className="text-[#E8B95E] drop-shadow-lg block mt-2">{t('hero.title2')}</span>
         </h1>
 
         {/* Subheadline */}
@@ -458,7 +377,7 @@ export default function Hero() {
           className="animate-fade-in-up text-sm sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed font-light drop-shadow-md"
           style={{ animationDelay: '0.15s' }}
         >
-          Helping businesses automate operations, improve customer engagement, and streamline daily workflows.
+          {t('hero.subtitle')}
         </p>
 
         {/* CTA Buttons */}
@@ -470,13 +389,13 @@ export default function Hero() {
             href="/#services"
             className="group inline-flex items-center gap-2.5 px-8 py-4 bg-gradient-to-r from-[#E8B95E] to-[#d4a44e] text-[#042430] font-semibold text-[0.95rem] rounded-xl shadow-lg shadow-[#E8B95E]/20 hover:shadow-xl hover:shadow-[#E8B95E]/30 hover:-translate-y-0.5 transition-all duration-300"
           >
-            Explore Services &rarr;
+            {t('hero.exploreServices')} {isAr ? '\u2190' : '\u2192'}
           </Link>
           <Link
             href="/contact"
             className="group inline-flex items-center gap-2.5 px-8 py-4 rounded-xl border border-white/20 text-white font-semibold text-[0.95rem] backdrop-blur-sm bg-white/[0.05] hover:bg-white/[0.1] hover:border-[#E8B95E]/40 hover:-translate-y-0.5 transition-all duration-300"
           >
-            Contact Us &rarr;
+            {t('hero.contactUs')} {isAr ? '\u2190' : '\u2192'}
           </Link>
         </div>
       </div>

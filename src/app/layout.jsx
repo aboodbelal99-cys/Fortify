@@ -1,7 +1,7 @@
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import Script from 'next/script';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 export const metadata = {
   title: {
@@ -43,44 +43,13 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                var match = document.cookie.match(/googtrans=\\/en\\/([^;]+)/);
-                if (match && match[1] === 'ar') {
-                  document.documentElement.setAttribute('lang', 'ar');
-                  document.documentElement.classList.add('lang-ar');
-                }
-              } catch (e) {}
-            `
-          }}
-        />
       </head>
       <body className="min-h-screen flex flex-col">
-        <div id="google_translate_element" style={{ position: 'absolute', top: '-9999px', left: '-9999px', opacity: 0, pointerEvents: 'none' }} />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <Script
-          id="google-translate-init"
-          strategy="afterInteractive"
-        >
-          {`
-            window.googleTranslateElementInit = function() {
-              new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,ar',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-              }, 'google_translate_element');
-            }
-          `}
-        </Script>
-        <Script
-          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-          strategy="afterInteractive"
-        />
+        <LanguageProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

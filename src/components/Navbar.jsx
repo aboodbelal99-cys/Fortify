@@ -4,18 +4,20 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
-
-const navLinks = [
-  { href: '/', label: 'Home', labelAr: 'الرئيسية' },
-  { href: '/#services', label: 'Services', labelAr: 'الخدمات' },
-  { href: '/#why-fortify', label: 'Why Fortify', labelAr: 'لماذا فورتيفاي' },
-  { href: '/#process', label: 'Process', labelAr: 'آلية العمل' },
-  { href: '/contact', label: 'Contact', labelAr: 'تواصل معنا' },
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { href: '/', label: t('nav.home') },
+    { href: '/#services', label: t('nav.services') },
+    { href: '/#why-fortify', label: t('nav.whyFortify') },
+    { href: '/#process', label: t('nav.process') },
+    { href: '/contact', label: t('nav.contact') },
+  ];
 
   // Close menu on route change
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14">
 
-            {/* Brand name (text only — logo is in the hero) */}
+            {/* Brand name */}
             <Link href="/" className="flex items-center gap-2.5 group">
               <div className="relative w-8 h-8 overflow-hidden rounded-md">
                 <img
@@ -40,11 +42,9 @@ export default function Navbar() {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <span className="fortify-brand text-lg font-bold tracking-tight notranslate">
-                <span>
-                  <span className="text-white">Fort</span>
-                  <span className="text-[#E8B95E]">ify</span>
-                </span>
+              <span className="text-lg font-bold tracking-tight">
+                <span className="text-white">Fort</span>
+                <span className="text-[#E8B95E]">ify</span>
               </span>
             </Link>
 
@@ -60,16 +60,7 @@ export default function Navbar() {
                       : 'text-[#8faab8] hover:text-white hover:bg-white/5'
                   }`}
                 >
-                  <span className={`${
-                    link.label === 'Home' ? 'nav-home' :
-                    link.label === 'Services' ? 'nav-services' :
-                    link.label === 'Why Fortify' ? 'nav-why-fortify' :
-                    link.label === 'Process' ? 'nav-process' :
-                    link.label === 'Contact' ? 'nav-contact' :
-                    ''
-                  } notranslate`}>
-                    <span>{link.label}</span>
-                  </span>
+                  {link.label}
                 </Link>
               ))}
               <LanguageSwitcher className="ml-2" />
@@ -77,9 +68,7 @@ export default function Navbar() {
                 href="/contact"
                 className="ml-3 inline-flex items-center gap-1.5 px-5 py-2 bg-gradient-to-r from-[#E8B95E] to-[#d4a44e] text-[#042430] text-[0.82rem] font-semibold rounded-lg hover:shadow-md hover:shadow-[#E8B95E]/20 transition-all duration-300"
               >
-                <span className="nav-get-started notranslate">
-                  <span>Contact Us</span>
-                </span>
+                {t('nav.contactUs')}
               </Link>
             </div>
 
@@ -129,16 +118,7 @@ export default function Navbar() {
                   : 'text-[#8faab8] hover:text-white hover:bg-white/5'
               }`}
             >
-              <span className={`${
-                link.label === 'Home' ? 'nav-home' :
-                link.label === 'Services' ? 'nav-services' :
-                link.label === 'Why Fortify' ? 'nav-why-fortify' :
-                link.label === 'Process' ? 'nav-process' :
-                link.label === 'Contact' ? 'nav-contact' :
-                ''
-              } notranslate`}>
-                <span>{link.label}</span>
-              </span>
+              {link.label}
             </Link>
           ))}
           <div className="pt-3 flex flex-col gap-3">
@@ -147,9 +127,7 @@ export default function Navbar() {
               href="/contact"
               className="block text-center px-5 py-3 bg-gradient-to-r from-[#E8B95E] to-[#d4a44e] text-[#042430] text-sm font-semibold rounded-lg"
             >
-              <span className="nav-get-started notranslate">
-                <span>Contact Us</span>
-              </span>
+              {t('nav.contactUs')}
             </Link>
           </div>
         </div>
